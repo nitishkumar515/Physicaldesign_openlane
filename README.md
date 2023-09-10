@@ -119,9 +119,9 @@ View the synthesis statistics
    
  </details>
 
-# Day2
+## Day-2
 <details>
-<summary>Chip Floor Planning Consideration</summary>
+  <summary>Chip Floor Planning Consideration</summary>
   
 #### Utilisation Factor
     
