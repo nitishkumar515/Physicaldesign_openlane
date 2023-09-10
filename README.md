@@ -2,7 +2,7 @@
 ## Day-1
 
 <details>
-  <summary>Introduction</summary>
+  <summary>Introduction</summary> 
   
 * Physical Design or PnR (Place and Route) is the core of any IC design cycle.
 * From a RTL netlist to final tape-out, each phase of PnR brings it’s own challenges and surprises.
