@@ -118,3 +118,11 @@ View the synthesis statistics
 - Here flop ratio is **1596/10104 = 0.1579** (i.e: 15.8%) [From the synthesis statistics]
    
  </details>
+
+# Day2
+<details>
+<summary>Chip Floor Planning Consideration</summary>
+  
+#### Utilisation Factor
+    
+ </details>
