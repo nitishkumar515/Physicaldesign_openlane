@@ -20,4 +20,34 @@ The process of converting the RTL Netlist into a manufactured IC then starts, an
  </details>
  <details>
 <summary> OpenLane Flow </summary>
+### 1.  Synthesis  
+RTL synthesizer primary responsibility is to convert the code into the gate-level netlist. This is a automated process; a tool has all the standard libraries definitions that can manipulate the respective gate-level netlist, which is an equivalent of your design in RTL. Standard cells have regular layout each have different views/models. We use Yosys which is an Open Source Logic Synthesizer. Yosys takes the RTL design and timing .libs and verilog models of standard cells and converts  into  a  RTL Netlist. abc does the tehnology mapping to the required skywater-pdk variants 
+### 1.1 Goals of Synthesis
+To get a gate-level netlist.
+Inserting clock gates.
+Logic optimazations.
+etc
+### 1.2 Deign Exploration Utility 
+This is used to suit the design configuration and generate reports with different metrics to select the best. This is also used for regression testing
+### 1.3 Design For Test - DFT Insertion
+It is used to test the design. Digital system verification and testing are progressively more important, as they become major contributors to the
+manufacturing cost of a new IC product. 
+###  2. Floor Planning and Power Planning
+Floor planing is the starting step in ASIC physical design. Floor plan determines the size of the design cell (or die), creates the boundary and core area, and creates wire tracks for placement of standard cells. It is also a process of positioning blocks or macros on the die. This is done by OpenROAD flow. 
+The following parameters are decided in the floor planning stage.
+Die size, core size of the chip (rectangular or rectilinear)
+I/O pad’s location
+Plan for power
+Row configuration
+### 3. Placement
+There are two types of placement.  The other required logic is placed optimally.
+Placement is of two steps
+- Global Placement- finds the optimal position for each cells. These positions are not necessarly correct, cells may overlap
+- Detialed Placement - After Global placement is done minimal alterations are done to correct the issues
+### 4. Clock Tree Synthesis 
+To ensure minimum skew the Clock is routed optimally through the circuit using different algorithms. This is done in the OpenROAD flow. This is done by TritonCTS.
+
+
+
+   
  </details>
