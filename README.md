@@ -28,6 +28,9 @@
  <details>
 <summary> OpenLane Flow </summary>
    
+The block digram of openlane flow is shown below
+![fig-2]()   
+
 ### 1.  Synthesis  
 RTL synthesizer primary responsibility is to convert the code into the gate-level netlist. This is a automated process; a tool has all the standard libraries definitions that can manipulate the respective gate-level netlist, which is an equivalent of your design in RTL. Standard cells have regular layout each have different views/models. We use Yosys which is an Open Source Logic Synthesizer. Yosys takes the RTL design and timing .libs and verilog models of standard cells and converts  into  a  RTL Netlist. abc does the tehnology mapping to the required skywater-pdk variants 
 ### 1.1 Goals of Synthesis
@@ -54,8 +57,64 @@ Placement is of two steps
 - Detialed Placement - After Global placement is done minimal alterations are done to correct the issues
 ### 4. Clock Tree Synthesis 
 To ensure minimum skew the Clock is routed optimally through the circuit using different algorithms. This is done in the OpenROAD flow. This is done by TritonCTS.
+### 5. Fake Antenna and diode swapping
+Long wires acts as antennas and cause accumulation of charges during the fabrication process damaging the transistor. To avoid this bridging is used to pass the wire through different layers or an antenna diode cell is added to leak away the charges
+
+* OpenLane approach - Insert Fake Diode to every cell input during placement. This matches the footprint of the library of the antenna diode. The Antenna Checker is run to check for violations, if there are violations then the fake diode is swapped with a real one.
+* OpenROAD approach - In the global route step, the antenna violation is addressed automatically by inserting an antenan diode OpenLane allows the user to chose either of the above approaches.
+### 6. Routing
+Implement the interconnect using the available metal layers. skywater130 PDK define 6 routing layers. There are two steps.
+* Global Routing - This is done inside the OpenROAD flow (FastRoute)
+* Detailed Routing - This is performed using TritonRoute outside the OpenROAD flow after the global routing. Before performing this step the Logic Equivalence Check is performed by Yosys, since OpenROAD does some optimisations the circuit.
+
+### 7. RC Extraction
+From the .def file, the parasitic extraction is done to generate the .spef file (Standard Prasitic Exchange Format) which produces an accurate analog model of the circuit by including the parasitic effects due to wires, parasitic capacitances, etc.
+### 8. STA
+At this stage again OpenSTA is used to perform the Static Timing Analysis.
+### 9. Sign-off Steps
+* Physical verifications
+* Design Rule Check (DRC) is performed by Magic.
+* Layout Versus Schematic (LVS) is performed by Netgen.
+### 10. GDSII Extraction
+The routed .def file is used my Magic to generate the GDSII file
+## OpenLane Installation and Environment Setup
+Refer to [Kanish R1 GIthub](https://github.com/KanishR1/Physical-Design-Using-Openlane) or [OpenLane build Script by Nikson Jose] for OpenLane installation and environment setup.If the installation is carried out on a Virtual Machine/Linux, the following repository can be used from reference **(https://github.com/nickson-jose/openlane_build_script)**
+
+## Working with OpenLane
+
+### Start Openlane
+```
+make mount
+```
+The terminal changes into the docker instance. Open the OpenLane in interactive mode.
+```
+./flow.tcl -interactive
+```
+Set the package required by OpenLane
+
+```pakage require openlane 0.9```
+
+## Synthesis
+
+Run the synthesis
+```run_synthesis```
+
+OpenLane invokes the following
+
+- `Yosys` - RTL Synthesis and maps to yosys generic cells
+- `abc` - Technology mapping with the Skywater130 PDK. Here `sky130_fd_sc_hd` Skywater Foundry produced High density standard cells are used.
+- `OpenSTA` - This does the Static Timing Analysis on the netlist generated after synthesis and generated the timing reports 
+
+View the synthesis statistics
+
+![fig-3]()
 
 
+### Key concepts
 
+#### Flops ratio 
+
+- The flop ratio is defined as the ratio of the number of flops to the total number of cells
+- Here flop ratio is **1596/10104 = 0.1579** (i.e: 15.8%) [From the synthesis statistics]
    
  </details>
