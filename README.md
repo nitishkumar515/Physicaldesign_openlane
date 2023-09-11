@@ -23,7 +23,7 @@
 - The placement of logical synthesis comes next. So that the clock's skew is at a minimal or under the necessary threshold, we now perform CTS (Clock Tree Synthesis). Following CTS, all of the assembled components are routed.
 - A process known as "Static Timing Analysis" is used between each and every step in the physical design flow, from logic synthesis through routing, to analyze the design at each stage and confirm that it is actually right.
 - Magic is an open source application to view the layouts for every stage. You can extract a tiny netlist, run a SPICE simulation, and compare the results with the post-layout Simulation using ngspice.The digram of design flow is shown below.
-![fig-1]()  
+![fig-1](https://github.com/nitishkumar515/Physicaldesign_openlane/blob/main/fig100.png)  
  </details>
  <details>
 <summary> OpenLane Flow </summary>
