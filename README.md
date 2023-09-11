@@ -29,7 +29,7 @@
 <summary> OpenLane Flow </summary>
    
 The block digram of openlane flow is shown below
-![fig-2]()   
+![fig-2](https://github.com/nitishkumar515/Physicaldesign_openlane/blob/main/fig101.png)   
 
 ### 1.  Synthesis  
 RTL synthesizer primary responsibility is to convert the code into the gate-level netlist. This is a automated process; a tool has all the standard libraries definitions that can manipulate the respective gate-level netlist, which is an equivalent of your design in RTL. Standard cells have regular layout each have different views/models. We use Yosys which is an Open Source Logic Synthesizer. Yosys takes the RTL design and timing .libs and verilog models of standard cells and converts  into  a  RTL Netlist. abc does the tehnology mapping to the required skywater-pdk variants 
