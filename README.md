@@ -105,7 +105,8 @@ OpenLane invokes the following
 
 - `Yosys` - RTL Synthesis and maps to yosys generic cells
 - `abc` - Technology mapping with the Skywater130 PDK. Here `sky130_fd_sc_hd` Skywater Foundry produced High density standard cells are used.
-- `OpenSTA` - This does the Static Timing Analysis on the netlist generated after synthesis and generated the timing reports 
+- `OpenSTA` - This does the Static Timing Analysis on the netlist generated after synthesis and generated the timing reports
+  
 View the synthesis statistics
 
 
