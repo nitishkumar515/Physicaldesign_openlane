@@ -94,6 +94,8 @@ Set the package required by OpenLane
 
 ```pakage require openlane 0.9```
 
+![fig103](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/2f1edda4-b21c-4bc5-a9c8-6bca4256513e)
+
 ## Synthesis
 
 Run the synthesis
@@ -106,9 +108,7 @@ OpenLane invokes the following
 - `OpenSTA` - This does the Static Timing Analysis on the netlist generated after synthesis and generated the timing reports 
 
 View the synthesis statistics
-
-![fig-3]()
-
+![fig104](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/a2a35d77-0d62-48be-977b-1bbf8b7f3bd5)
 
 ### Key concepts
 
