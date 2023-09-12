@@ -126,5 +126,102 @@ View the synthesis statistics
   <summary>Chip Floor Planning Consideration</summary>
   
 #### Utilisation Factor
+
+- The ratio of area occupied by the cells in the netlist to the total area of the core
+- Best practice is to set the utilisation factor less than 50% so that there will be space for optimisations, routing, inserting buffers etc.,
+
+### Aspect Ratio
+
+- Aspect ratio is the ratio of height to the width of the die.
+- Aspect Ratio of 1 indicates that the die is a square die
+
+## Floorplanning
+
+Floorplanning involves the following stages
+
+### Pre-Placed cells
+
+- Whenever there is a complex logic which is repeated multiple times or a design given by a third-party it can be perceived as abstract black box with input and output ports, clocks etc ., 
+- These modules can be either macros or IP
+    - Macro  - It is a module such as CPU Core which are developed by the entity fabicating the chip
+    - IP - It is an "Intellectual Propertly" which the entity fabricating the chip gets as a package from a third party or even packaged Hard IPs developed by the same entity. Common examples of IPs are SRAM, PLL, Protocol Converters etc.,
+
+- These Macros and IPs are placed in the core at first before placing the standard cells  and power planning
+- These are optimally such that the cells which are more connected to each other are placed nearby and oriented for input and ouputs
+
+### Decoupling Capacitors to the pre placed cells
+
+- The power lines can have some RLC component causing the voltage to drop at the node where it enters the Blocks or the ground of the cell can be at a higher potential than ideally 0V
+- When this happens, there is a chance such that the logic transitions are not to the upper or lower noise margins but to the forbidden state causing the circuit to misbehave
+- This is prevented by adding a capacitor in parallel with the power and ground node of the block such that the capacitor decouples the block from the power source whenever there is a logic transition
+
+### Power Planning
+
+- When there are several cells or blocks drawing power from the same power rail and sinking power to the same ground pin the following effects are observed
+    - Whenever there is alogic transition from 1 to 0 in a large number of cells then there is a Voltage Droop in the power lines as Voltage Drops from Vdd
+    - Whener there is a logic transition from 0 to 1 in a large number of cells simultaneously causes the ground potential to raise above 0V calles as Ground Bump
+    - These effects pose a risk of driving the logic state out of the specified noise margin.
+    - To avoid this the Vdd and Gnd are placed as a grid of horizontal and vertical tracks and the cell nearer to an intersection can tap power or sink power to the Vdd or Gnd intersection respectively
+
+### Pin Placement
+ - The input, output and Clock pins are placed optimally such that there is less complication in routing or optimised delay
+ - There are different styles of pin placement in openlane like `random pin placement` , `uniformly spaced` etc.,
+
+  </details>
+
+  <details>
+
+<summary>Floorplan run on OpenLANE & review layout in Magic</summary>
+
+**Floorplan envrionment variables or switches:**
+1. ```FP_CORE_UTIL``` - core utilization percentage
+2. ```FP_ASPECT_RATIO``` - the cores aspect ratio
+3. ```FP_CORE_MARGIN``` - The length of the margin surrounding the core area
+4. ```FP_IO_MODE``` - defines pin configurations around the core(1 = randomly equidistant/0 = not equidistant)
+5. ```FP_CORE_VMETAL``` - vertical metal layer where I/O pins are placed
+6. ```FP_CORE_HMETAL``` - horizontal metal layer where I/O pins are placed
+ 
+***Note: Usually, the parameter values for vertical metal layer and horizontal metal layer will be 1 more than that specified in the files***
+
+**Importance files in increasing priority order:**
+1. ```floorplan.tcl``` - System default settings
+2. ```conifg.tcl```
+3. ```sky130A_sky130_fd_sc_hd_config.tcl```
+ 
+ To run the picorv32a floorplan in openLANE:
+ 
+ ```
+ run_floorplan
+ 
+ ```
+![runfloorplan](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/33bdd81c-da77-4a8f-be26-349a2fdaf8eb)
+
+Post the floorplan run, a .def file will have been created within the ```results/floorplan``` directory. We may review floorplan files by checking the ```floorplan.tcl.``` The system defaults will have been overriden by switches set in conifg.tcl and further overriden by switches set in ```sky130A_sky130_fd_sc_hd_config.tcl.```
+
+To view the floorplan, Magic is invoked after moving to the results/floorplan directory:
+
+![floorplandictonary](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/22d7b055-3900-4c24-8741-c2ba7e932d92)
+
+
+```
+magic -T /home/parallels/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read tmp/merged.nom.lef def read results/floorplan/picorv32a.def &
+
+```
+
+
+
+
+
+
+
     
+
+
+
+
+
+
+
+
+ 
  </details>
