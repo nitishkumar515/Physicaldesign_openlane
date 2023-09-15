@@ -219,13 +219,112 @@ The standard cell can be found at the bottom left corner.
 
 You can clearly see I/O pins, Decap cells and Tap cells. Tap cells are placed in a zig zag manner or you can say diagonally
 </details>
-Library Binding and Placement
 <details>
+  <summary>
+    Library Binding and Placement
+  </summary>
+  
+  ## Netlist Binding and initial place design
 
-Library Binding and Placement
+First we need to bind the netlist with physical cells. We have shapes for OR, AND and every cell for pratice purpose. But in reality we dont have such shapes, we have give an physical dimensions like rectangles or squares weight and width. This information is given in libs and lefs. Now we place these cells in our design by initilaising it. 
+
+## Optimize Placement
+
+The next step is placement. Once we initial the design, the logic cells in netlist in its physical dimisoins is placed on the floorplan. Placement is perfomed in 2 stages:
+
+Global Placement: Cells will be placed randomly in optimal positions which may not be legal and cells may overlap. Optimization is done through reduction of half parameter wire length.
+Detailed Placement: It alters the position of cells post global placement so as to legalise them.
+Legalisation of cells is important from timing point of view.
+
+Optimization is stage where we estimate the lenght and capictance, based on that we add buffers. Ideally, Optimization is done for better timing.
+
+![Screenshot from 2023-09-15 23-33-01](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/d9616758-71b0-4079-b213-2b44f985fa38)
 
 
+## Congestion aware Placement 
 
+Post placement, the design can be viewed on magic within results/placement directory:
+
+```
+magic -T /home/parallels/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read tmp/merged.nom.lef def read results/floorplan/picorv32a.def &
+
+```
+![Screenshot from 2023-09-15 23-34-29](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/4f341418-9f36-4538-a5f7-33f243922b86)
+
+
+**Note: Power distribution network generation is usually a part of the floorplan step. However, in the openLANE flow, floorplan does not generate PDN.  It is created after post CTS. The steps are - floorplan, placement, CTS, Post CTS and then PDN**
+
+## Need for libraries and characterization
+
+As we know, From logic synthesis to routing and STA, each and evry stage has one thing in common i.e., logic gates/ logic cells. In order for the tool understand these gates are and their timing, we need to characterize these cells. 
+
+## CELL DESIGN AND CHARACETRIZATION FLOWS
+Library is a place where we get information about every cell. It has differents cells with different size, functionality,threshold voltages. There is a typical cell design flow steps.
+1. Inputs : PDKS(process design kit) : DRC & LVS, SPICE Models, library & user-defined specs.
+2. Design Steps :Circuit design, Layout design (Art of layout Euler's path and stick diagram), Extraction of parasitics, Characterization (timing, noise, power).
+3. Outputs: CDL (circuit description language), LEF, GDSII, extracted SPICE netlist (.cir), timing, noise and power .lib files
+
+### Standard Cell Characterization Flow
+
+A typical standard cell characterization flow that is followed in the industry includes the following steps:
+
+1. Read in the models and tech files
+2. Read extracted spice Netlist
+3. Recognise behavior of the cells
+4. Read the subcircuits
+5. Attach power sources
+6. Apply stimulus to characterization setup
+7. Provide neccesary output capacitance loads
+8. Provide neccesary simulation commands
+
+Now all these 8 steps are fed in together as a configuration file to a characterization software called GUNA. This software generates timing, noise, power models.
+These .libs are classified as Timing characterization, power characterization and noise characterization.
+
+![Screenshot from 2023-09-15 23-35-45](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/a6ba224d-08e3-4c7a-a7e5-5331484f0671)
+
+
+### TIMING CHARACTERIZATION
+In standard cell characterisation, One of the classification of libs is timing characterisation.
+
+### Timing threshold definitions 
+Timing defintion |	Value
+-------------- | --------------
+slew_low_rise_thr	| 20% value
+slew_high_rise_thr | 80% value
+slew_low_fall_thr |	20% value
+slew_high_fall_thr |	80% value
+in_rise_thr	| 50% value
+in_fall_thr |	50% value
+out_rise_thr |	50% value
+out_fall_thr | 50% value
+
+### Propagation Delay and Transition Time 
+
+**Propagation Delay** 
+The time difference between when the transitional input reaches 50% of its final value and when the output reaches 50% of its final value. Poor choice of threshold values lead to negative delay values. Even thought you have taken good threshold values, sometimes depending upon how good or bad the slew, the dealy might be still +ve or -ve.
+
+```
+Propagation delay = time(out_thr) - time(in_thr)
+```
+**Transition Time**
+
+The time it takes the signal to move between states is the transition time , where the time is measured between 10% and 90% or 20% to 80% of the signal levels.
+
+```
+Rise transition time = time(slew_high_rise_thr) - time (slew_low_rise_thr)
+
+Low transition time = time(slew_high_fall_thr) - time (slew_low_fall_thr)
+```
+
+</details>
+
+# DAY3 Design Library Cell using ngspice simulations
+
+<details>
+  <summary>CMOS inverter ngspice simulations </summary>
+  ``ngspice``  is opesoure engine where simulations are done.
+
+  ### IO Placer revision
 
 
 
