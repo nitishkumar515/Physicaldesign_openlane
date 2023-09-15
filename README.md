@@ -318,7 +318,7 @@ Low transition time = time(slew_high_fall_thr) - time (slew_low_fall_thr)
 
 </details>
 
-# DAY3 Design Library Cell using ngspice simulations
+## DAY3 Design Library Cell using ngspice simulations
 
 <details>
   <summary>CMOS inverter ngspice simulations </summary>
