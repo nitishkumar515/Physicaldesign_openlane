@@ -454,6 +454,11 @@ run_synthesis
 
 ```
 synthesis report :
+![Screenshot from 2023-09-17 22-53-56](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/42498c87-fcf2-4ac1-8597-0054a13de2b3)
+
+sta report:
+
+![Screenshot from 2023-09-17 22-57-26](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/300ea7c5-2086-4afd-a08f-e20fd42e2c4c)
 
 
 
