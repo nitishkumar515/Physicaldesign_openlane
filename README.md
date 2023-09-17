@@ -497,6 +497,8 @@ After placement, we check for legality &To check the layout invoke magic from th
 magic -T /home/parallels/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read tmp/merged.nom.lef def read results/floorplan/picorv32a.def &
 
 ```
+![Screenshot from 2023-09-17 23-32-38](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/5a41c5cd-1fba-4a69-871e-06322307db6e)
+
 
 </details>
 
