@@ -326,6 +326,134 @@ Low transition time = time(slew_high_fall_thr) - time (slew_low_fall_thr)
 
   ### IO Placer revision
 
+</details>
+
+## DAY 4 
+
+<details>
+
+<summary> Timing Analysis and Clock Tree Synthesis (CTS) </summary>
+
+### Standard Cell LEF generation
+During Placement, entire mag information is not necessary. Only the PR boundary, I/O ports, Power and ground rails of the cell is required. This information is defined in LEF file.
+The main objective is to extract lef from the mag file and plug into our design flow.
+
+# Grid into Track info
+
+ **Track** :A path or a line on which metal layers are drawn for routing. Track is used to define the height of the standard cell. 
+
+To implement our own stdcell, few guidelines must be followed 
+ - I/O ports must lie on the intersection on Horizontal and vertical tracks
+ - Width and Height of standard cell are odd mutliples of Horizontal track pitch and Vertical track pitch
+
+This information is defined in ``tracks.info``. 
+
+```
+li1 X 0.23 0.46 
+li1 Y 0.17 0.34
+```
+
+before grid on:
+
+![Screenshot from 2023-09-17 21-52-47](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/7e627b59-5b2d-41c1-8d1d-2bf4c5f149a2)
+
+To ensure that ports lie on the intersection point, the grid spacing in Magic (tkcon) must be changed to the li1 X and li1 Y values. After providing the command, we have following:
+
+```
+grid 0.46um 0.34um 0.23um 0.17um
+
+```
+![Screenshot from 2023-09-17 21-55-47](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/521671d2-9b35-441e-a9e2-759efd267275)
+
+### Create Port Definition: 
+
+However, certain properties and definitions need to be set to the pins of the cell. For LEF files, a cell that contains ports is written as a macro cell, and the ports are the declared as PINs of the macro.
+
+The way to define a port is through Magic console and following are the steps:
+- In Magic Layout window, first source the .mag file for the design (here inverter). Then Edit >> Text which opens up a dialogue box.
+- When you double press S at the I/O lables, the text automatically takes the string name and size. Ensure the Port enable checkbox is checked and default checkbox is unchecked as shown in the figure:
+
+![Screenshot from 2023-09-17 21-59-22](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/123afff8-44aa-4157-b433-a045994f2c04)
+
+- In the above figure, The number in the textarea near enable checkbox defines the order in which the ports will be written in LEF file (0 being the first).
+
+-  For power and ground layers, the definition could be same or different than the signal layer. Here, ground and power connectivity are taken from metal1
+
+### Set port class and port use attributes for layout 
+fter defining ports, the next step is setting port class and port use attributes.
+
+Select port A in magic:
+```
+port class input
+port use signal
+```
+Select Y area
+```
+port class output
+port use signal
+```
+Select VPWR area
+```
+port class inout
+port use power
+```
+Select VGND area
+```
+port class inout
+port use ground
+
+```
+### Custom cell naming and lef extraction.
+
+Name the custom cell through tkcon window as ```sky130_vsdinv.mag```.
+
+We generate lef file by command:
+
+```
+lef write
+
+```
+This generates sky130_vsdinv.lef file.
+![Screenshot from 2023-09-17 22-03-02](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/160bc150-144c-49d3-9738-fb3e7fd85655)
+### Steps to include custom cell in ASIC design
+
+We have created a custom standard cell in previous steps of an inverter. Copy lef file, sky130_fd_sc_hd_typical.lib, sky130_fd_sc_hd_slow.lib & sky130_fd_sc_hd_fast.lib to src folder of picorv32a from libs folder vsdstdcelldesign. Then modify the config.tcl as follows.
+
+```
+
+# Design
+set ::env(DESIGN_NAME) "picorv32a"
+
+set ::env(VERILOG_FILES) "$::env(DESIGN_DIR)/src/picorv32a.v"
+
+set ::env(CLOCK_PORT) "clk"
+set ::env(CLOCK_NET) $::env(CLOCK_PORT)
+
+set ::env(GLB_RESIZER_TIMING_OPTIMIZATIONS) {1}
+
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
+set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+
+set filename $::env(DESIGN_DIR)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
+if { [file exists $filename] == 1} {
+	source $filename
+}
+
+```
+To integrate standard cell in openlane flow after `` make mount `` , perform following commands:
+
+```
+prep -design picorv32a -tag RUN_2023.09.09_20.37.18 -overwrite 
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+run_synthesis
+
+```
+synthesis report :
 
 
 
