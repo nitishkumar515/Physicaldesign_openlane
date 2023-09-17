@@ -476,6 +476,7 @@ VLSI engineers have identified specific constraints when inserting buffers to pr
 
 When the algorithm works with these delay tables, it utilizes the provided input slew and load capacitance values to compute the corresponding delay values for the buffers. In cases where the precise delay data is not readily available, the algorithm employs a technique of interpolation to determine the closest available data points and extrapolates from them to estimate the required delay values.
 
+![Screenshot from 2023-09-17 22-13-36](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/a8593786-ca47-494f-9b97-d588683e65dd)
 
 ### Openlane steps with custom standard cell
 
