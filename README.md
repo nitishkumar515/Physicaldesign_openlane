@@ -911,12 +911,12 @@ Make sure the CURRENT_DEF is set to pdn.def.
 
  
  </details>
- # Word of Thanks
+## Word of Thanks
 I sciencerly thank **Mr. Kunal Ghosh**(Founder/**VSD**) for helping me out to complete this flow smoothly.
 
 ## Acknowledgement
 - Kunal Ghosh, VSD Corp. Pvt. Ltd.
-- Alwin shaju IIITB
+- Alwin Shaju IIITB
 - Chatgpt
 - Kanish R,Colleague,IIIT B
 - Pruthvi Parate,Colleague,IIIT B
