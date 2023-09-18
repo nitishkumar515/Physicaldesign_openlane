@@ -772,7 +772,10 @@ During Floorplan,``` 504 endcaps, 6731 tapcells ``` got placed. Design has 275 o
 
 Now ``` run_placement```
 
-After placement, we check for legality &To check the layout invoke magic from the results/placement directory:
+![Screenshot from 2023-09-19 01-27-36](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/f0bda061-b22d-483c-b0ad-b5e3fc745f5e)
+
+
+After placement, we check for legality & To check the layout invoke magic from the results/placement directory:
 
 ```
 magic -T home/nitish/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read tmp/merged.nom.lef def read results/floorplan/picorv32a.def &
@@ -904,6 +907,22 @@ Make sure the CURRENT_DEF is set to pdn.def.
 
 ``` run_routing
 ```
+![image](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/27fdebe3-d375-4f8c-8587-f6cc8cd7ab28)
 
  
  </details>
+ # Word of Thanks
+I sciencerly thank **Mr. Kunal Ghosh**(Founder/**VSD**) for helping me out to complete this flow smoothly.
+
+## Acknowledgement
+- Kunal Ghosh, VSD Corp. Pvt. Ltd.
+- Alwin shaju IIITB
+- Chatgpt
+- Kanish R,Colleague,IIIT B
+- Pruthvi Parate,Colleague,IIIT B
+- Bhargav DV,Colleague,IIIT B
+  
+## Reference 
+- https://www.vsdiat.com
+- https://github.com/KanishR1
+- https://github.com/bhargav-vlsi/Physical_design_open_lane
