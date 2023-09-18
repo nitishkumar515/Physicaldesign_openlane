@@ -246,7 +246,7 @@ Optimization is stage where we estimate the lenght and capictance, based on that
 Post placement, the design can be viewed on magic within results/placement directory:
 
 ```
-magic -T /home/parallels/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read tmp/merged.nom.lef def read results/floorplan/picorv32a.def &
+magic -T /home/nitish/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read tmp/merged.nom.lef def read results/floorplan/picorv32a.def &
 
 ```
 ![Screenshot from 2023-09-15 23-34-29](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/4f341418-9f36-4538-a5f7-33f243922b86)
@@ -494,7 +494,7 @@ Now ``` run_placement```
 After placement, we check for legality &To check the layout invoke magic from the results/placement directory:
 
 ```
-magic -T /home/parallels/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read tmp/merged.nom.lef def read results/floorplan/picorv32a.def &
+magic -T home/nitish/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read tmp/merged.nom.lef def read results/floorplan/picorv32a.def &
 
 ```
 ![Screenshot from 2023-09-17 23-32-38](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/5a41c5cd-1fba-4a69-871e-06322307db6e)
