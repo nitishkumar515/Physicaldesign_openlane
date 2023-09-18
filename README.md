@@ -540,7 +540,7 @@ We can download the packaged files from web using ``wget `` command. wget stands
   
   ``` wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz```
   
-The archive file drc_tests.tgz is downloaded into our user directory 
+
   ![fig]()
 
 once extraction is done, drc_tests file is created and you will have all the information about magic layout for this lab exercise
@@ -559,6 +559,7 @@ cif see VIA2
 
 ```
 ![fig]()
+
 ## Load Sky130 tech rules for drc challenges 
 
 First load the poly file by ``load poly.mag`` on tkcon window.
@@ -600,12 +601,6 @@ spacing xhrpoly,uhrpoly,xpc allpolynonres 480 touching_illegal \
 
 
 </details>
-
-
-
-
-
-
    
 </details>
 
