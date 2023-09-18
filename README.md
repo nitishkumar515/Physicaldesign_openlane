@@ -636,7 +636,7 @@ li1 Y 0.17 0.34
 
 before grid on:
 
-![Screenshot from 2023-09-17 21-52-47](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/7e627b59-5b2d-41c1-8d1d-2bf4c5f149a2)
+![Screenshot from 2023-09-17 21-55-47](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/521671d2-9b35-441e-a9e2-759efd267275)
 
 To ensure that ports lie on the intersection point, the grid spacing in Magic (tkcon) must be changed to the li1 X and li1 Y values. After providing the command, we have following:
 
@@ -644,7 +644,7 @@ To ensure that ports lie on the intersection point, the grid spacing in Magic (t
 grid 0.46um 0.34um 0.23um 0.17um
 
 ```
-![Screenshot from 2023-09-17 21-55-47](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/521671d2-9b35-441e-a9e2-759efd267275)
+![Screenshot from 2023-09-17 21-52-47](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/7e627b59-5b2d-41c1-8d1d-2bf4c5f149a2)
 
 ### Create Port Definition: 
 
@@ -778,7 +778,8 @@ After placement, we check for legality &To check the layout invoke magic from th
 magic -T home/nitish/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read tmp/merged.nom.lef def read results/floorplan/picorv32a.def &
 
 ```
-![Screenshot from 2023-09-17 23-32-38](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/5a41c5cd-1fba-4a69-871e-06322307db6e)
+![Screenshot from 2023-09-18 23-03-40](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/0d7ba018-a80d-44c6-aa0d-d3a2ef687cce)
+
 
 
 </details>
