@@ -848,7 +848,28 @@ The upper metal layer  should be wider than the lower metal layer to solve signa
 </details>
 <details>
 	<summary>Power Distribution Network generation</summary>
+ - Unlike the general ASIC flow, Power Distribution Network generation is not a part of floorplan run in OpenLANE. PDN must be generated after CTS and post-CTS STA analyses:
+- We can check whether PDN has been created or no by check the current def environment variable: 
+```echo	$::env(CURRENT_DEF)
+```
+```
+gen_pdn
+```
+- gen_pdn Generates the power distribution network.
 
+- The power distribution network has to take the design_cts.def as the input def file.
+
+- Power rings,strapes and rails are created by PDN.
+
+- From VDD and VSS pads, power is drawn to power rings.
+
+- Next, the horizontal and vertical strapes connected to rings draw the power from strapes.
+
+- Stapes are connected to rings and these rings are connected to std cells. So, standard cells get power from rails.
+
+- Here are definitions for the straps and the rails. In this design, straps are at metal layer 4 and 5 and the standard cell rails are at the metal layer 1. Vias connect accross the layers as required.
+
+![Screenshot from 2023-09-19 00-44-09](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/a222b798-23d3-425f-9f8a-9780cd42ab8e)
 
 </details>
 <details>
@@ -860,6 +881,29 @@ Routing is divided into two distinct stages
 
 ### Key Features of TritonRoute
 
+- Initial Detail Routing
+- Adherence to Pre-Processed Route Guides
+- Adherence to Pre-Processed Route Guides
+- Guide Splitting
+- Guide Merging
+- Guide Bridging
+
+### TritonRoute problem statement
+
+```
+Inputs : LEF, DEF, Preprocessed route guides
+Output : Detailed routing solution with optimized wire length and via count
+Constraints : Route guide honoring, connectivity constraints and design rules.
+```
+The space where the detailed route takes place has been defined. Now TritonRoute handles the connectivity in two ways.
+- Access Point(AP)
+- Access Point Cluster(APC)
+### TritonRoute run for routing
+Make sure the CURRENT_DEF is set to pdn.def.
+- Start routing by using
+
+``` run_routing
+```
 
  
  </details>
