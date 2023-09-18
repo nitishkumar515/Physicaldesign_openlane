@@ -830,6 +830,10 @@ The upper metal layer  should be wider than the lower metal layer to solve signa
 
 ![Screenshot from 2023-09-18 15-44-21](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/bde428b0-2b13-4851-8285-d21c2f32de71)
 
+</details>
+<details>
+	<summary>Power Distribution Network generation</summary>
+
 
 
 
