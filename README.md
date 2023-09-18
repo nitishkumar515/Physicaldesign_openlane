@@ -917,12 +917,11 @@ I sciencerly thank **Mr. Kunal Ghosh**(Founder/**VSD**) for helping me out to co
 
 ## Acknowledgement
 - Kunal Ghosh, VSD Corp. Pvt. Ltd.
-- Alwin Shaju IIITB
+- Alwin Shaju, IIITB
 - Chatgpt
 - Kanish R,Colleague,IIIT B
-- Pruthvi Parate,Colleague,IIIT B
-- Bhargav DV,Colleague,IIIT B
-  
+- Priyansh Pandya, IIITB
+
 ## Reference 
 - https://www.vsdiat.com
 - https://github.com/KanishR1
