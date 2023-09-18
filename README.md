@@ -835,6 +835,15 @@ The upper metal layer  should be wider than the lower metal layer to solve signa
 	<summary>Power Distribution Network generation</summary>
 
 
+</details>
+<details>
+	<summary>Routing</summary>
+	
+Routing is divided into two distinct stages
+- Global Routing : Global routing first partitions the routing region into tiles and decides tile-to-tile paths for all nets while attempting to optimize some given objective function. This task is accomplished by the "FASTE ROUTE" engine.
+- Detailed Routing : The objective of detailed routing is to assign route segments of signal nets to specific routing tracks, vias, and metal layers in a manner consistent with given global routes of those nets.  This task is accomplished by the "tritonRoute" engine.
+
+### Key Features of TritonRoute
 
 
  
