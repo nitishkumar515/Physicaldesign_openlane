@@ -797,9 +797,33 @@ sdc file for OpenSTA is modified like this:
 
 
     
+</details>
+
+## Day 5
+
+<details>
+	<summary>Final steps in RTL2GDS</summary>
+	
+ ## Maze Routing (Lee's algorithm)
+
+ Routing is the process of finding best possible route to connect source and target or between two points. Maze algorithm is desinged for routing which is developed by Lee.
+The Lee algorithm starts with two designated points, the source and target, and leverages the routing grid to identify the shortest or optimal route between them. As shown in figures below.
+
+![Screenshot from 2023-09-18 14-52-33](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/b50ee03e-14ec-49a0-acab-04b7c3b71aec)
+![Screenshot from 2023-09-18 14-51-16](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/3ac6d573-cd7e-492a-b4db-91f0c563c6f4)
 
 
+In first figure path between source to target has two bend and in second figure has one bend so least bend path is preferable in routing.
 
+## Design Rule Check (DRC)
+
+DRC checking is an essential part of the physical design flow and ensures the design meets manufacturing requirements and will not result in a chip failure. It defines the Quality of chip. They are so many DRCs, let us see few of them.
+DRC verifies whether a design meets the predefined process technology rules given by the foundry for its manufacturing.
+typical design rule for physical wires
+- Minimun width of the wires
+- Minimun spacing between wires
+  To solve signal short violation ``` Minimum width of the wire ``` ``` Minimun spacing between wires ``` should be maintained as per Photolithography rules or requirement.
+  ![Screenshot from 2023-09-18 15-42-09](https://github.com/nitishkumar515/Physicaldesign_openlane/assets/140998638/6874bfda-d02f-484d-bdd6-1fbdf8dd32e8)
 
 
 
