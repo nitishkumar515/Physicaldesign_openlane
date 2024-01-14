@@ -815,7 +815,7 @@ Purpose: In VLSI circuits, the clock distribution network is crucial for synchro
 ## Day 5
 
 <details>
-	<summary>Final steps in RTL2GDS</summary>
+	<summary>Final steps in RTL to GDS</summary>
 	
  ## Maze Routing (Lee's algorithm)
 
